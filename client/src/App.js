@@ -11,12 +11,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 // Import pages here
 
 const App = () => {
+  console.log(process.env.REACT_APP_LOCAL_STORAGE);
   const navigate = useNavigate();
   const auth =
     useSelector((state) => state.signInStore.user) ||
-    localStorage.getItem("user");
+    JSON.parse(localStorage.getItem("user"));
   console.log(auth);
-  
+
   useEffect(() => {
     if (auth) {
       navigate("/home");

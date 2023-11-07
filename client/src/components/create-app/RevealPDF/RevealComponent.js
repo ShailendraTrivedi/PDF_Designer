@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { pdfjs } from "react-pdf";
 import RightPDF from "./RightPDF";
 import LeftPDF from "./LeftPDF";
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.js",
-  import.meta.url
-).toString();
+import pdfWorkerSrc from "pdfjs-dist/build/pdf.worker.min.js";
 
-const RevealComponent = ({ pdf,selectedPages, setSelectedPages  }) => {
+pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
+
+const RevealComponent = ({ pdf, selectedPages, setSelectedPages }) => {
   const [count, setCount] = useState(1);
   return (
     <>

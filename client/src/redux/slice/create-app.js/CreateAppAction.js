@@ -10,6 +10,7 @@ import {
 import { REACT_APP_LOCAL_STORAGE } from "../../../constant";
 
 export const postPDFAction = (formData) => {
+  console.log(formData);
   return async (dispatch) => {
     try {
       const response = await axios.post(
@@ -31,12 +32,13 @@ export const postPDFAction = (formData) => {
   };
 };
 
-export const getPDFAction = () => {
+export const getPDFAction = (values) => {
   return async (dispatch) => {
     dispatch(fetchPdfReq());
     try {
-      const response = await axios.get(
-        `${REACT_APP_LOCAL_STORAGE}/pdf/fetch-files`
+      const response = await axios.post(
+        `${REACT_APP_LOCAL_STORAGE}/pdf/fetch-files`,
+        values
       );
       if (response.status === 200) {
         dispatch(fetchPdfSuc(response.data));

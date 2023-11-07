@@ -6,12 +6,13 @@ import { REACT_APP_LOCAL_STORAGE } from "../../constant";
 
 const FetchComponent = ({ setPdf }) => {
   const CreateAppComponentStore = useSelector((state) => state.createAppStore);
+  const userName = JSON.parse(localStorage.getItem("user"));
 
   console.log(CreateAppComponentStore);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPDFAction());
+    dispatch(getPDFAction({ userName }));
   }, [dispatch]);
 
   const handleSelectPdf = (pdf) => {

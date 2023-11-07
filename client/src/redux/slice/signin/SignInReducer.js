@@ -4,7 +4,7 @@ const SignInSlice = createSlice({
   name: "signin",
   initialState: {
     loading: false,
-    user: "",
+    user: null,
   },
   reducers: {
     signInReq: (state) => {
@@ -18,7 +18,7 @@ const SignInSlice = createSlice({
       state.loading = false;
     },
     logout: (state) => {
-      state.user = "";
+      state.user = null;
     },
   },
 });

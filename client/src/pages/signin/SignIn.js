@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 
 import Input from "../../components/input/Input";
 import SignInAction from "../../redux/slice/signin/SignInAction";
@@ -10,6 +11,12 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const signinStore = useSelector((state) => state.signInStore.loading);
+
+  const validationSchema = Yup.object().shape({
+    userEmail: Yup.string().required("Email is required"),
+    userPassword: Yup.string().required("Password is required"),
+  });
+
   return (
     <>
       {signinStore.loading ? (
@@ -25,6 +32,7 @@ const SignIn = () => {
                   userEmail: "",
                   userPassword: "",
                 }}
+                validationSchema={validationSchema}
                 onSubmit={(values) => {
                   dispatch(SignInAction(values, navigate));
                 }}

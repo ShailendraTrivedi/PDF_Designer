@@ -12,7 +12,8 @@ const CreateAppSlice = createSlice({
     },
     fetchPdfSuc: (state, action) => {
       state.loading = false;
-      state.pdfs = [...state.pdfs, ...action.payload.message];
+      // state.pdfs = [...state.pdfs, ...action.payload.message];
+      state.pdfs = [...action.payload.message];
     },
     fetchPdfErr: (state) => {
       state.loading = false;

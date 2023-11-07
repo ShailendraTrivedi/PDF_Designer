@@ -2,18 +2,19 @@ import React from "react";
 import { AiOutlineCheckCircle, AiOutlineCloudUpload } from "react-icons/ai";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postPDFAction } from "../../redux/slice/create-app.js/CreateAppAction";
 import FetchComponent from "./FetchComponent";
 
 const UploadComponent = () => {
   const dispatch = useDispatch();
+  const userName =  JSON.parse(localStorage.getItem("user"));
 
   const handleFormSubmit = (values, { resetForm }) => {
     const { pdfName, pdfFile } = values;
 
     if (pdfFile && pdfFile.type === "application/pdf") {
-      const newPdfFiles = { pdfName, pdfFile };
+      const newPdfFiles = { userName, pdfName, pdfFile };
       dispatch(postPDFAction(newPdfFiles));
     }
   };

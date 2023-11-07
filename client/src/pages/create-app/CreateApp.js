@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UploadComponent from "../../components/create-app/UploadComponent";
 import RevealComponent from "../../components/create-app/RevealPDF/RevealComponent";
 import FetchComponent from "../../components/create-app/FetchComponent";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { genratePFD } from "../../redux/slice/create-app.js/CreateAppAction";
 import { Link } from "react-router-dom";
 
@@ -10,9 +10,11 @@ const CreateApp = () => {
   const dispatch = useDispatch();
   const [pdf, setPdf] = useState();
   const [selectedPages, setSelectedPages] = useState([]);
+  const userName = JSON.parse(localStorage.getItem("user"));
   const handleGenrate = () => {
     const arr = pdf.split("/");
     const values = {
+      userName: userName,
       pdfName: arr[arr.length - 1],
       selectedPages: selectedPages,
     };

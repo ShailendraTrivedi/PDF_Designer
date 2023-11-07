@@ -3,10 +3,27 @@ import React from "react";
 import Input from "../../components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import SignUpAction from "../../redux/slice/signup/SignUpAction";
+import * as Yup from "yup";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const signUpStore = useSelector((state) => state.signUpStore);
+
+  const validationSchema = Yup.object().shape({
+    userName: Yup.string()
+      .min(3, "Username must be at least 3 characters")
+      .required("Username is required"),
+    userEmail: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
+    userPassword: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("userPassword"), null], "Passwords must match")
+      .required("Confirm Password is required"),
+  });
+
   return (
     <>
       {signUpStore.loading ? (
@@ -24,6 +41,7 @@ const SignUp = () => {
                 userPassword: "",
                 confirmPassword: "",
               }}
+              validationSchema={validationSchema}
               onSubmit={(values) => {
                 dispatch(SignUpAction(values));
               }}
