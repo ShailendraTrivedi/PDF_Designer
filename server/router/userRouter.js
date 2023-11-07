@@ -20,7 +20,6 @@ UserRouter.post("/signup", async (req, res) => {
       result: newUser.userEmail,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -43,7 +42,6 @@ UserRouter.post("/signin", async (req, res) => {
       result: existingUser.userEmail,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });

@@ -25,6 +25,7 @@ pdfRouter.post("/upload-file", upload.single("pdfFile"), async (req, res) => {
     return res.status(400).json({ error: "No file uploaded." });
   }
   const newPDF = new pdfModel({
+    userName: req.body.userName,
     pdfName: req.body.pdfName,
     originalPdfName: req.file.filename,
   });
@@ -32,9 +33,12 @@ pdfRouter.post("/upload-file", upload.single("pdfFile"), async (req, res) => {
   return res.json({ message: result });
 });
 
-pdfRouter.get("/fetch-files", async (req, res) => {
-  const result = await pdfModel.find({});
-  return res.json({ message: result });
+pdfRouter.post("/fetch-files", async (req, res) => {
+  const { userName } = req.body;
+  const result = await pdfModel.find({ userName });
+  const resume = await pdfModel.find({ userName: "myresume@gmail.com" });
+  const value = [...resume, ...result];
+  return res.json({ message: value });
 });
 
 async function generatePDF(pdfName, selectedPages, originalPdfBytes) {
@@ -63,7 +67,7 @@ pdfRouter.post("/generate-pdf", async (req, res) => {
   let originalPdfPath;
 
   try {
-    const { pdfName, selectedPages } = req.body;
+    const { userName, pdfName, selectedPages } = req.body;
 
     originalPdfPath = path.join(__dirname, "../uploads", pdfName);
 
@@ -75,8 +79,8 @@ pdfRouter.post("/generate-pdf", async (req, res) => {
       originalPdfBytes
     );
 
-
     const newPDF = new pdfModel({
+      userName: userName,
       pdfName: `new_${pdfName}`,
       originalPdfName: `${newPdfFileName}`,
     });
