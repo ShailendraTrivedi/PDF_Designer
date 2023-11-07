@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf";
 import "./rightPDF.css";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-const RightPDF = ({pdf,  count, setCount }) => {
+const RightPDF = ({ pdf, count, setCount }) => {
   const [numPages, setNumPages] = useState();
   const [pageNumber, setPageNumber] = useState(1);
 
@@ -29,21 +30,25 @@ const RightPDF = ({pdf,  count, setCount }) => {
   };
   return (
     <div className="flex flex-col gap-5 w-full p-5">
-      <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
-        <Page
-          pageNumber={pageNumber}
-          renderTextLayer={false}
-          renderAnnotationLayer={false}
-        />
-      </Document>
-      <div className="flex flex-col items-center w-full">
+      <div className="blader">
+        <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page
+            pageNumber={pageNumber}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
+          />
+        </Document>
+      </div>
+      <div className="flex justify-between items-center w-full">
+        <button onClick={decreasePageNumber}>
+          <AiOutlineLeft size={30} />
+        </button>
         <p>
           Page {pageNumber} of {numPages}
         </p>
-        <div className="flex justify-between w-full">
-          <button onClick={decreasePageNumber}>Previous Page</button>
-          <button onClick={increasePageNumber}>Next Page</button>
-        </div>
+        <button onClick={increasePageNumber}>
+          <AiOutlineRight size={30} />
+        </button>
       </div>
     </div>
   );

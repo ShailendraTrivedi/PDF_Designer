@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Input from "../../components/input/Input";
 import SignInAction from "../../redux/slice/signin/SignInAction";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const signinStore = useSelector((state) => state.signInStore);
+  const navigate = useNavigate();
+  const signinStore = useSelector((state) => state.signInStore.loading);
   return (
     <>
       {signinStore.loading ? (
@@ -25,7 +26,7 @@ const SignIn = () => {
                   userPassword: "",
                 }}
                 onSubmit={(values) => {
-                  dispatch(SignInAction(values));
+                  dispatch(SignInAction(values, navigate));
                 }}
               >
                 {() => (
@@ -35,6 +36,7 @@ const SignIn = () => {
                         type="text"
                         name="userEmail"
                         label="User Email"
+                        placeholder="Enter The Email Address"
                       />
                     </div>
                     <div className="">
@@ -42,12 +44,11 @@ const SignIn = () => {
                         label="User Password"
                         type="text"
                         name="userPassword"
+                        placeholder="Enter The Password"
                       />
                     </div>
                     <div className="flex justify-end">
-                      <button className="text-[#4f4e4e]">
-                        Forget Password?
-                      </button>
+                      <div className="text-[#4f4e4e]">Forget Password?</div>
                     </div>
                     <div className="flex items-center justify-center">
                       <button
@@ -56,12 +57,6 @@ const SignIn = () => {
                       >
                         SignIn
                       </button>
-                    </div>
-                    <div className="flex gap-2 items-center justify-center">
-                      Don't have an account yet?
-                      <Link to="/signUp">
-                        <span className="text-[r ed]">ClickHere !</span>
-                      </Link>
                     </div>
                   </Form>
                 )}

@@ -4,7 +4,7 @@ const SignInSlice = createSlice({
   name: "signin",
   initialState: {
     loading: false,
-    user: "shailendratrivedi004@gmail.com",
+    user: "",
   },
   reducers: {
     signInReq: (state) => {
@@ -12,14 +12,17 @@ const SignInSlice = createSlice({
     },
     signInSuc: (state, action) => {
       state.loading = false;
-      state.user = action.payload.userEmail;
+      state.user = action.payload;
     },
     signInErr: (state) => {
       state.loading = false;
     },
+    logout: (state) => {
+      state.user = "";
+    },
   },
 });
 
-export const { signInReq, signInSuc, signInErr } = SignInSlice.actions;
+export const { signInReq, signInSuc, signInErr, logout } = SignInSlice.actions;
 const SignInReducer = SignInSlice.reducer;
 export default SignInReducer;

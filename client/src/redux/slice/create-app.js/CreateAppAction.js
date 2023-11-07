@@ -4,14 +4,16 @@ import {
   fetchPdfErr,
   fetchPdfReq,
   fetchPdfSuc,
+  uploadNewPDFSucc,
   uploadSucc,
 } from "./CreateAppReducer";
+import { REACT_APP_LOCAL_STORAGE } from "../../../constant";
 
 export const postPDFAction = (formData) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/pdf/upload-file",
+        `${REACT_APP_LOCAL_STORAGE}/pdf/upload-file`,
         formData,
         {
           headers: {
@@ -33,7 +35,9 @@ export const getPDFAction = () => {
   return async (dispatch) => {
     dispatch(fetchPdfReq());
     try {
-      const response = await axios.get("http://localhost:5000/pdf/fetch-files");
+      const response = await axios.get(
+        `${REACT_APP_LOCAL_STORAGE}/pdf/fetch-files`
+      );
       if (response.status === 200) {
         dispatch(fetchPdfSuc(response.data));
       }
@@ -43,15 +47,18 @@ export const getPDFAction = () => {
   };
 };
 
-export const genratePDF = (values) => {
-  return async () => {
+export const genratePFD = (values) => {
+  return async (dispatch) => {
     try {
-      console.log(values);
       const response = await axios.post(
-        "http://localhost:5000/pdf/generate-pdf",
+        `${REACT_APP_LOCAL_STORAGE}/pdf/generate-pdf`,
         values
       );
       console.log(response);
+      if (response.status === 200) {
+        dispatch(uploadNewPDFSucc(response.data));
+        toast.success("Genrated PDF generated successfully");
+      }
     } catch (error) {}
   };
 };

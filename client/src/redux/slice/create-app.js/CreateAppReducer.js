@@ -20,10 +20,18 @@ const CreateAppSlice = createSlice({
     uploadSucc: (state, action) => {
       state.pdfs = [...state.pdfs, action.payload.message];
     },
+    uploadNewPDFSucc: (state, action) => {
+      state.pdfs = [...state.pdfs, action.payload];
+    },
   },
 });
 
-export const { fetchPdfReq, fetchPdfSuc, fetchPdfErr, uploadSucc } =
-  CreateAppSlice.actions;
+export const {
+  fetchPdfReq,
+  fetchPdfSuc,
+  fetchPdfErr,
+  uploadSucc,
+  uploadNewPDFSucc,
+} = CreateAppSlice.actions;
 const CreateAppReducer = CreateAppSlice.reducer;
 export default CreateAppReducer;

@@ -14,7 +14,7 @@ const RevealComponent = ({ pdf,selectedPages, setSelectedPages  }) => {
       {!pdf ? (
         <div className="text-center text-2xl">Select PDF To Reveal</div>
       ) : (
-        <div className="flex flex-col m-10">
+        <div className="grid sm:grid-cols-2 grid-cols-1 sm:m-10 m-2">
           <RightPDF pdf={pdf} count={count} setCount={setCount} />
           <LeftPDF
             pdf={pdf}

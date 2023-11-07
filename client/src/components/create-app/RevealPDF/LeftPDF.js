@@ -20,7 +20,7 @@ const LeftPDF = ({ pdf ,count, setCount, selectedPages, setSelectedPages }) => {
 
   return (
     <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}>
-      <div className="grid grid-cols-5 gap-5 w-full p-5">
+      <div className="grid sm:grid-cols-5 grid-cols-3 gap-5 w-full p-5">
         {Array.from({ length: numPages }, (_, i) => {
           const checked = selectedPages.includes(i + 1);
           const index = selectedPages.indexOf(i + 1);
@@ -37,7 +37,7 @@ const LeftPDF = ({ pdf ,count, setCount, selectedPages, setSelectedPages }) => {
                   <div
                     className={`blader ${
                       checked ? "bg-blue-600" : "bg-white"
-                    } text-white text-center flex justify-center items-center h-8 w-8 font-bold`}
+                    } text-white text-center flex justify-center items-center sm:h-8 h-6 sm:w-8 w-6 font-bold`}
                   >
                     {checked && <span>{index + 1}</span>}
                   </div>

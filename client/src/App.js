@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Page Routing
 import PageRouting from "./routers/PageRouting";
 
 // Import components here
 import Navbar from "./components/navbar/Navbar";
+import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 
 // Import pages here
 
 const App = () => {
+  const navigate = useNavigate();
+  const auth =
+    useSelector((state) => state.signInStore.user) ||
+    localStorage.getItem("user");
+  console.log(auth);
+  
+  useEffect(() => {
+    if (auth) {
+      navigate("/home");
+    } else {
+      navigate("/");
+    }
+  }, [auth]);
+
   return (
     <div className="relative min-h-screen">
-      <Navbar />
-      <PageRouting />
+      <Navbar auth={auth} />
+      <PageRouting auth={auth} />
     </div>
   );
 };

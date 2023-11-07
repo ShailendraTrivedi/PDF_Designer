@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import UploadComponent from "../../components/create-app/UploadComponent";
 import RevealComponent from "../../components/create-app/RevealPDF/RevealComponent";
 import FetchComponent from "../../components/create-app/FetchComponent";
-import { genratePDF } from "../../redux/slice/create-app.js/CreateAppAction";
 import { useDispatch } from "react-redux";
+import { genratePFD } from "../../redux/slice/create-app.js/CreateAppAction";
+import { Link } from "react-router-dom";
 
 const CreateApp = () => {
   const dispatch = useDispatch();
@@ -15,12 +16,12 @@ const CreateApp = () => {
       pdfName: arr[arr.length - 1],
       selectedPages: selectedPages,
     };
-    dispatch(genratePDF(values));
+    dispatch(genratePFD(values));
   };
 
   return (
-    <div className="min-h-screen p-10">
-      <div className="grid grid-cols-2 gap-10 p-10">
+    <div className="min-h-screen sm:p-10 p-2">
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-10 sm:p-10">
         <UploadComponent />
         <FetchComponent setPdf={setPdf} />
       </div>

@@ -13,7 +13,7 @@ const SignUp = () => {
         <div>Loading</div>
       ) : (
         <div className="flex justify-center pt-[5rem]">
-          <div className="w-[40rem] space-y-10 border-2 border-black p-5 rounded-xl shadow-xl">
+          <div className="relative w-[40rem] space-y-10 border-2 border-black p-5 rounded-xl shadow-xl">
             <div className="text-4xl text-center">
               Create your account to get started.
             </div>
